@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portfolio.mapper.UserMapper">
+	<select id="selectUserCntById" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM user_info WHERE id=#{userid}
+	</select>
+
+	<insert id="insertUser">
+		Insert INTO user_info( 
+			seq,
+			id,
+			password,
+			name,
+			email,
+			type,
+			grade,
+			blog,
+			profile_img,
+			introduce
+			)
+		VALUES( user_seq.nextval, #{ui_id}, #{ui_pwd}, #{ui_name}, #{ui_email}, 3, 1, #{ui_blog}, #{ui_profile_img}, #{ui_introduce})
+	</insert>
+
+	<select id="loginUser" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM user_info WHERE id=#{id} AND password=#{pwd}
+	</select>
+
+	<select id="selectUserById" resultType="com.portfolio.vo.UserVO">
+        SELECT seq, id, name, email, type, grade, blog, profile_img, introduce
+		FROM user_info
+		WHERE id=#{id}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portfolio.mapper.BoardMapper">
+    <insert id="insertPost">
+        INSERT INTO post_info(seq, owner, title, content, reg_dt, mod_dt, board_seq)
+        VALUES(post_seq.nextval, #{user_seq}, #{post_title}, #{post_content}, sysdate, sysdate, #{board_seq})
+    </insert>
+
+    <select id="getPostList" resultType="com.portfolio.vo.PostVO">
+       SELECT * FROM post_info WHERE board_seq=#{board}
+       
+    </select>
+    <select id="getPostBySeq" resultType="com.portfolio.vo.PostVO">
+        SELECT * FROM post_info WHERE seq=#{no}
+    </select>
+    <select id="getBoardPostCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) from post_info WHERE board_seq=#{board_seq}
+    </select>
+
+    <update id="updatePost" >
+        UPDATE post_info SET title=#{title}, content=#{content}, mod_dt=sysdate WHERE seq=#{seq}
+    </update>
+
+    <delete id="deletePost">
+        DELETE FROM post_info WHERE seq=#{seq}
+    </delete>
+
+    <update id="updatePostCount">
+        UPDATE post_info SET count = count + 1 WHERE seq=#{seq}
+    </update>
+
+
+    <insert id="insertPostGoodBad">
+        INSERT INTO post_good_bad(seq, post_seq, user_seq, status)
+        VALUES (pgb_seq.nextval, #{post_seq}, #{user_seq}, #{good_bad})
+    </insert>
+
+    <select id="selectPostGoodBad" resultType="com.portfolio.vo.GoodBadVO">
+        SELECT 
+            post_seq AS post_seq,
+            user_seq AS user_seq,
+            status AS good_bad
+        FROM post_good_bad WHERE post_seq=#{post_seq} AND user_seq=#{user_seq}
+    </select>
+
+    <update id="updatePostGoodbad">
+        UPDATE post_good_bad SET status=#{good_bad} WHERE user_seq=#{user_seq} AND post_seq=#{post_seq}
+    </update>
+    <select id="selectPostLikesCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM post_good_bad WHERE post_seq=#{seq} AND status=0
+        UNION ALL
+        SELECT COUNT(*) FROM post_good_bad WHERE post_seq=#{seq} AND status=1
+    </select>
+
+
+    </mapper>
