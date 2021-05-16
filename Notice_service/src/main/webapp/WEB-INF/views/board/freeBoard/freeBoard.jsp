@@ -57,7 +57,7 @@
         <c:if test="${userInfo.type == 1 || userInfo.type == 3}">
             <a href="freeBoard/write" id="notice_write">글 등록</a>
         </c:if>
-        <div class="pager_area">
+       <div class="pager_area">
             <button id="prev_10">&lt;&lt;</button>
             <button id="prev_page">&lt;</button>
             <div class="pagers">
@@ -65,7 +65,8 @@
             </div>
             <button id="next_page">&gt;</button>
             <button id="next_10">&gt;&gt;</button>
-        </div>
+        </div> 
+    
         <div class="search_area">
             <form action="/notice">
                 <select name="type">

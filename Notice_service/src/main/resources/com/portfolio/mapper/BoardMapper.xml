@@ -8,7 +8,6 @@
 
     <select id="getPostList" resultType="com.portfolio.vo.PostVO">
        SELECT * FROM post_info WHERE board_seq=#{board}
-       
     </select>
     <select id="getPostBySeq" resultType="com.portfolio.vo.PostVO">
         SELECT * FROM post_info WHERE seq=#{no}

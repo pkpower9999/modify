@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class BoardController {
 
@@ -20,7 +19,8 @@ public class BoardController {
 	BoardService service;
 
 	@GetMapping("/notice")
-	public String getNotice(@RequestParam @Nullable Integer offset, Model model) {
+	public String getNotice(@RequestParam @Nullable Integer offset,
+							Model model) {
 		if(offset == null)
 			offset = 0;
 		List<PostVO> list = service.getPostList(offset, 2);
